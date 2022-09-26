@@ -1,0 +1,11 @@
+{
+  "database": {
+    "courses": [
+      {
+        "id": 1,
+        "name": "GOF   GOF GOF GOF GOF updated v10",
+        "description": "description description v10"
+      }
+    ]
+  }
+}
