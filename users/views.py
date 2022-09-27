@@ -1,5 +1,4 @@
 import json
-from datetime import date
 from sqlite3 import IntegrityError
 
 from django import forms
@@ -84,7 +83,7 @@ class Users(View):
         if len(user):
             user = user[0]
             user.delete()
-            return HttpResponse(user)
+            return HttpResponse("Deleted GG")
         else:
             return HttpResponse("there is no user with this id")
 
@@ -108,24 +107,17 @@ class Users(View):
             return HttpResponse("Data is not valid")
 
 
-def get_age(birth_date):
-    today = date.today()
-    return today.year - birth_date.year - (
-            (today.month, today.day) < (birth_date.month, birth_date.day))
-
-
 class AgeUtility(View):
     def get(self, request):
         body = request.body.decode("utf-8")
         body = json.loads(body)
         age = int(body["age"])
-        all_users = models.User.objects.all().order_by("birth_date").values()
-        print(all_users)
-        output = {}
+        all_users = models.User.objects.all().order_by("birth_date")
+        output = []
         for user in all_users:
-            if get_age(user["birth_date"]) > age:
-                output[user["id"]] = user
+            if user.age > age:
+                output.append(user)
             else:
                 break
-        print(output)
-        return JsonResponse(output)
+
+        return HttpResponse(output)

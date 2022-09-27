@@ -1,12 +1,11 @@
+import json
+
 from django import forms
 from django.db import IntegrityError
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import View
 
 from courses import models
-from .db import *
-
-id_exist = all_courses()
 
 
 class BasicFormCustom(forms.Form):
@@ -39,6 +38,7 @@ def get_all_courses():
 
 
 def get_course_by_id(id):
+    print(models.Course.objects.all())
     courses = models.Course.objects.all().filter(id=id).values()
     if len(courses):
         return courses[0]
@@ -56,7 +56,7 @@ class Course(View):
         if id == "":
             return JsonResponse(get_all_courses())
         id = int(id)
-        return JsonResponse(get_course_with_id(id))
+        return JsonResponse(get_course_by_id(id))
 
     def post(self, request):
         body_unicode = request.body.decode("utf-8")
@@ -79,7 +79,7 @@ class Course(View):
         if len(course):
             course = course[0]
             course.delete()
-            return HttpResponse(course)
+            return HttpResponse("Deleted gg")
         else:
             return HttpResponse("there is no Course with this id")
 

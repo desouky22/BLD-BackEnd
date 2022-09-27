@@ -16,10 +16,10 @@ class User(models.Model):
     password = models.CharField(max_length=50, null=True)
     birth_date = models.DateField(null=True)
 
+    @property
     def age(self):
         today = date.today()
-        age = today.year - self.birth_date.year - (
-                (today.month, today.day) < (self.birth_date.month, self.birth_date.day))
+        age = today.year - self.birth_date.year
         return age
 
     def __str__(self):
@@ -31,6 +31,6 @@ class User(models.Model):
         verbose_name_plural = "Users"
         ordering = [
             'first_name',
-            'last_name'
+            'last_name',
+            'birth_date'
         ]
-       
