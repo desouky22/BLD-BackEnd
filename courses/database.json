@@ -1,0 +1,21 @@
+{
+  "database": {
+    "courses": [
+      {
+        "id": 1,
+        "name": "GOF GangOfFIve",
+        "description": "a good book to learn design patterns"
+      },
+      {
+        "id": 2,
+        "name": "Head First OOD",
+        "description": "a good book to learn ObjectOrientedDesign"
+      },
+      {
+        "id": 3,
+        "name": "BLa Bla Bla Bla1",
+        "description": "desc for BLa Bla Bla Bla1"
+      }
+    ]
+  }
+}
